@@ -243,3 +243,8 @@ body.dark .page-title {
 body.dark .page-content p {
     color: #ccc;
 }
+
+.export-btn {
+    background: #6f42c1;
+    color: #fff;
+}
