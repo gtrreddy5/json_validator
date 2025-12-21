@@ -140,7 +140,46 @@ function highlightErrorLine(line) {
     textarea.focus();
     textarea.setSelectionRange(start, start + lines[line - 1].length);
 }
+function openExportModal() {
+    if (!textarea.value.trim()) {
+        alert("JSON content is empty!");
+        return;
+    }
+    document.getElementById("fileNameInput").value = "data.json";
+    document.getElementById("exportModal").style.display = "flex";
+}
 
+function closeExportModal() {
+    document.getElementById("exportModal").style.display = "none";
+}
+
+function saveJSON() {
+    let fileName = document.getElementById("fileNameInput").value.trim();
+    const content = textarea.value;
+
+    if (!fileName) {
+        alert("Please enter a file name");
+        return;
+    }
+
+    if (!fileName.endsWith(".json")) {
+        fileName += ".json";
+    }
+
+    const blob = new Blob([content], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    closeExportModal();
+}
 function toggleTheme() {
     document.body.classList.toggle("dark");
 
