@@ -87,6 +87,20 @@ Free online JSON validator and formatter. Validate, beautify, and minify JSON ea
         <li>Dark mode support</li>
     </ul>
 </section>
+<!-- EXPORT MODAL -->
+<div id="exportModal" class="modal">
+    <div class="modal-content">
+        <h3>Export JSON</h3>
+
+        <label>Enter a name for the JSON file:</label>
+        <input type="text" id="fileNameInput" placeholder="data.json">
+
+        <div class="modal-actions">
+            <button onclick="saveJSON()">Save</button>
+            <button class="cancel-btn" onclick="closeExportModal()">Cancel</button>
+        </div>
+    </div>
+</div>
 <!-- BOTTOM AD PLACEHOLDER -->
 <div class="ad ad-bottom">Advertisement</div>
 
