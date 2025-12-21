@@ -186,9 +186,8 @@ function clearEditor() {
     textarea.value = "";
     updateLineNumbers();
 
-    // Remove status messages visually (client-side)
-    const status = document.querySelector(".status");
-    if (status) status.remove();
+    // Reload page to reset server-rendered state
+    window.location.href = "/";
 }
 
 function toggleTheme() {
