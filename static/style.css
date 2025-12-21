@@ -75,6 +75,7 @@ body.dark .helper-text {
     display: flex;
     border: 1px solid #ccc;
     border-radius: 6px;
+    height: 300px;
     overflow: hidden;
 }
 
@@ -83,8 +84,6 @@ body.dark .editor-container {
 }
 
 #lineNumbers {
-    min-width: 40px;
-    max-width: 40px;
     background: #f0f0f0;
     padding: 10px;
     text-align: right;
@@ -99,10 +98,9 @@ body.dark #lineNumbers {
 }
 
 textarea {
-    flex: 1;
-    width: auto;
+    width: 100%;
     border: none;
-    padding: 10px 60px 10px 10px;
+    padding: 10px;
     font-family: monospace;
     font-size: 14px;
     resize: none;
@@ -115,7 +113,18 @@ body.dark textarea {
 }
 
 /* ===== Copy button ===== */
-
+.copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #333;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
 
 /* ===== Buttons ===== */
 .buttons {
@@ -233,81 +242,4 @@ body.dark .page-title {
 
 body.dark .page-content p {
     color: #ccc;
-}
-.seo-content {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-    line-height: 1.6;
-    color: #444;
-}
-
-.seo-content h2 {
-    margin-top: 20px;
-}
-
-body.dark .seo-content {
-    color: #ccc;
-}
-.copy-btn,
-.save-btn {
-    position: absolute;
-    right: 10px;
-    padding: 6px 10px;
-    font-size: 13px;
-    border-radius: 4px;
-    cursor: pointer;
-    z-index: 10;
-}
-.copy-btn {
-    top: 10px;
-    background: #ff9800;
-    color: #fff;
-}
-
-.save-btn {
-    top: 48px; /* below copy */
-    background: #17a2b8;
-    color: #fff;
-}
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-}
-
-.modal-content {
-    background: #fff;
-    padding: 20px;
-    width: 300px;
-    border-radius: 8px;
-}
-
-.modal-content h3 {
-    margin-top: 0;
-}
-
-.modal-content input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 8px;
-}
-
-.modal-actions {
-    margin-top: 15px;
-    text-align: right;
-}
-
-.modal-actions button {
-    margin-left: 6px;
-}
-
-body.dark .modal-content {
-    background: #222;
-    color: #fff;
 }
