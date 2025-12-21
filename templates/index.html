@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/static/favicon.ico">
-    <title>JSON Validator & Formatter</title>
+{% extends "base.html" %}
 
-    <!-- SEO -->
-    <meta name="description" content="Free online JSON Validator and Formatter. Validate, Beautify, and Minify JSON easily.">
-    <meta name="keywords" content="JSON validator, JSON formatter, JSON minify, JSON beautify">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
+JSON Validator & Formatter – Free Online JSON Tools
+{% endblock %}
 
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
+{% block description %}
+Free online JSON validator and formatter. Validate, beautify, and minify JSON easily with error line numbers and dark mode support.
+{% endblock %}
+
+{% block content %}
 
 <header class="top-header">
     <div>
@@ -117,22 +113,21 @@ function highlightErrorLine(line) {
 function toggleTheme() {
     document.body.classList.toggle("dark");
 
-    // Save preference
     if (document.body.classList.contains("dark")) {
         localStorage.setItem("theme", "dark");
     } else {
         localStorage.setItem("theme", "light");
     }
 }
-/* Apply saved theme on page load */
+
 (function () {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
         document.body.classList.add("dark");
     }
 })();
+
 updateLineNumbers();
 </script>
 
-</body>
-</html>
+{% endblock %}
