@@ -11,7 +11,6 @@ def index():
     error_line = ""
     error_col = ""
     input_json = ""
-    action = ""
 
     if request.method == "POST":
         input_json = request.form.get("json_input", "")
