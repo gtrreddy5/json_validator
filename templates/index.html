@@ -181,11 +181,7 @@ function saveJSON() {
 
     closeExportModal();
 }
-// Clear editor on full page reload
-window.addEventListener("load", function () {
-    textarea.value = "";
-    updateLineNumbers();
-});
+
 function clearEditor() {
     textarea.value = "";
     updateLineNumbers();
