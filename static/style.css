@@ -243,3 +243,18 @@ body.dark .page-title {
 body.dark .page-content p {
     color: #ccc;
 }
+.seo-content {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.seo-content h2 {
+    margin-top: 20px;
+}
+
+body.dark .seo-content {
+    color: #ccc;
+}
