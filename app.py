@@ -84,6 +84,15 @@ def sitemap():
 
     xml.append('</urlset>')
     return Response("\n".join(xml), mimetype="application/xml")
+@app.route("/robots.txt")
+def robots():
+    content = """User-agent: *
+Allow: /
+
+Sitemap: https://json-tools-online.com/sitemap.xml
+"""
+    return Response(content, mimetype="text/plain")
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
