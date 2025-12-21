@@ -41,7 +41,6 @@ Free online JSON validator and formatter. Validate, beautify, and minify JSON ea
                   placeholder="Paste your JSON here...">{{ input_json }}</textarea>
 
         <button class="copy-btn" onclick="copyEditor()">Copy</button>
-        <button class="save-btn" onclick="openExportModal()">💾</button>
     </div>
 
     <form method="post">
@@ -51,6 +50,7 @@ Free online JSON validator and formatter. Validate, beautify, and minify JSON ea
             <button type="button" onclick="submitForm('validate')">Validate</button>
             <button type="button" onclick="submitForm('beautify')">Beautify</button>
             <button type="button" onclick="submitForm('minify')">Minify</button>
+            <button type="button" class="export-btn" onclick="openExportModal()">💾 Save JSON</button>
         </div>
     </form>
 
