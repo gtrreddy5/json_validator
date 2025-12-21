@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON Validator & Formatter</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Free online JSON Validator and Formatter. Validate, Beautify, and Minify JSON easily.">
+    <meta name="keywords" content="JSON validator, JSON formatter, JSON minify, JSON beautify">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="top-header">
+    <div>
+        <h1>JSON Validator & Formatter</h1>
+        <p>Validate, Beautify, and Minify JSON easily</p>
+    </div>
+
+    <nav>
+        <a href="/about">About</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/contact">Contact</a>
+        <span class="theme-toggle" onclick="toggleTheme()">🌙</span>
+    </nav>
+</header>
+
+<!-- TOP AD PLACEHOLDER -->
+<div class="ad ad-top">Advertisement</div>
+
+<div class="container">
+    <p class="helper-text">
+        To format and validate your JSON, just copy + paste it below:
+    </p>
+
+    <div class="editor-container">
+        <div id="lineNumbers"></div>
+
+        <textarea id="jsonInput"
+                  oninput="updateLineNumbers()"
+                  placeholder="Paste your JSON here...">{{ input_json }}</textarea>
+
+        <button class="copy-btn" onclick="copyEditor()">Copy</button>
+    </div>
+
+    <form method="post">
+        <input type="hidden" name="json_input" id="hiddenJson">
+
+        <div class="buttons">
+            <button type="button" onclick="submitForm('validate')">Validate</button>
+            <button type="button" onclick="submitForm('beautify')">Beautify</button>
+            <button type="button" onclick="submitForm('minify')">Minify</button>
+        </div>
+    </form>
+
+    {% if message %}
+        <div class="status success">{{ message }}</div>
+    {% endif %}
+
+    {% if error %}
+        <div class="status error">
+            {{ error }}<br>
+            <strong>Line:</strong> {{ error_line }},
+            <strong>Column:</strong> {{ error_col }}
+        </div>
+
+        <script>
+            highlightErrorLine({{ error_line }});
+        </script>
+    {% endif %}
+</div>
+
+<!-- BOTTOM AD PLACEHOLDER -->
+<div class="ad ad-bottom">Advertisement</div>
+
+<script>
+const textarea = document.getElementById("jsonInput");
+const lineNumbers = document.getElementById("lineNumbers");
+
+function updateLineNumbers() {
+    const count = textarea.value.split("\n").length;
+    lineNumbers.innerHTML = Array.from({ length: count }, (_, i) => i + 1).join("<br>");
+}
+
+function submitForm(action) {
+    document.getElementById("hiddenJson").value = textarea.value;
+
+    const form = document.querySelector("form");
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "action";
+    input.value = action;
+
+    form.appendChild(input);
+    form.submit();
+}
+
+function copyEditor() {
+    textarea.select();
+    document.execCommand("copy");
+    alert("JSON copied!");
+}
+
+function highlightErrorLine(line) {
+    if (!line) return;
+    const lines = textarea.value.split("\n");
+    let start = 0;
+    for (let i = 0; i < line - 1; i++) start += lines[i].length + 1;
+    textarea.focus();
+    textarea.setSelectionRange(start, start + lines[line - 1].length);
+}
+
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+
+    // Save preference
+    if (document.body.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+    } else {
+        localStorage.setItem("theme", "light");
+    }
+}
+/* Apply saved theme on page load */
+(function () {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+    }
+})();
+updateLineNumbers();
+</script>
+
+</body>
+</html>
