@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>{% block title %}JSON Validator & Formatter | Online JSON Tools{% endblock %}</title>
+
+    <!-- SEO META -->
+    <meta name="description" content="{% block description %}Free online JSON validator and formatter. Validate, beautify, and minify JSON easily using fast and secure JSON tools.{% endblock %}">
+    <meta name="keywords" content="json validator, json formatter, json minify, json beautify, online json tools">
+    <meta name="author" content="JSON Tools Online">
+
+    <!-- Mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph (for sharing) -->
+    <meta property="og:title" content="{% block og_title %}JSON Validator & Formatter{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Validate, beautify, and minify JSON online for free.{% endblock %}">
+    <meta property="og:url" content="https://json-tools-online.com">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/favicon.ico">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+    {% block content %}{% endblock %}
+</body>
+</html>
