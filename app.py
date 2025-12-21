@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response
 import json
 import os
 
@@ -60,6 +60,30 @@ def contact():
 @app.route("/about")
 def about():
     return render_template("about.html")
+@app.route("/sitemap.xml")
+def sitemap():
+    pages = [
+        "https://json-tools-online.com/",
+        "https://json-tools-online.com/about",
+        "https://json-tools-online.com/privacy",
+        "https://json-tools-online.com/terms",
+        "https://json-tools-online.com/contact",
+    ]
+
+    xml = ['<?xml version="1.0" encoding="UTF-8"?>']
+    xml.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+
+    for page in pages:
+        xml.append(f"""
+        <url>
+            <loc>{page}</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        """)
+
+    xml.append('</urlset>')
+    return Response("\n".join(xml), mimetype="application/xml")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
