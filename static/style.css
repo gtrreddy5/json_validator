@@ -248,3 +248,38 @@ body.dark .page-content p {
     background: #6f42c1;
     color: #fff;
 }
+
+/* ===== Modal (Export JSON) ===== */
+.modal {
+    display: none;              /* 🔴 THIS HIDES IT INITIALLY */
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 20px;
+    width: 320px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-actions {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.modal-actions button {
+    margin-left: 8px;
+}
+
+/* Dark mode */
+body.dark .modal-content {
+    background: #1e1e1e;
+    color: #ffffff;
+}
+
