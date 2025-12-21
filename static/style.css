@@ -256,7 +256,17 @@ body.dark .seo-content {
     cursor: pointer;
     z-index: 10;
 }
+.copy-btn {
+    top: 10px;
+    background: #ff9800;
+    color: #fff;
+}
 
+.save-btn {
+    top: 48px; /* below copy */
+    background: #17a2b8;
+    color: #fff;
+}
 /* Modal */
 .modal {
     display: none;
