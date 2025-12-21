@@ -83,6 +83,8 @@ body.dark .editor-container {
 }
 
 #lineNumbers {
+    min-width: 40px;
+    max-width: 40px;
     background: #f0f0f0;
     padding: 10px;
     text-align: right;
