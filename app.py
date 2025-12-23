@@ -91,8 +91,20 @@ Allow: /
 Sitemap: https://json-tools-online.com/sitemap.xml
 """
     return Response(content, mimetype="text/plain")
+@app.route("/json-to-csv", methods=["GET", "POST"])
+def json_to_csv():
+    return render_template("json_to_csv.html")
 
+@app.route("/json-viewer")
+def json_viewer():
+    return render_template("json_viewer.html")
+
+@app.route("/json-to-xml")
+def json_to_xml():
+    return render_template("json_to_xml.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+# if __name__ == "__main__":
+#     app.run(debug=True)

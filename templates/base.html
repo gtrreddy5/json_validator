@@ -4,22 +4,32 @@
     <meta charset="UTF-8">
 
     <title>{% block title %}JSON Validator & Formatter | Online JSON Tools{% endblock %}</title>
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material.min.css">
 
-    <!-- SEO META -->
-    <meta name="description" content="{% block description %}Free online JSON validator and formatter. Validate, beautify, and minify JSON easily using fast and secure JSON tools.{% endblock %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/foldcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/foldgutter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/brace-fold.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/foldgutter.min.css">
+
+
+    <!-- SEO -->
+    <meta name="description" content="{% block description %}Free online JSON validator and formatter. Validate, beautify, and minify JSON easily.{% endblock %}">
     <meta name="keywords" content="json validator, json formatter, json minify, json beautify, online json tools">
     <meta name="author" content="JSON Tools Online">
 
-    <!-- Mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Open Graph (for sharing) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="{% block og_title %}JSON Validator & Formatter{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Validate, beautify, and minify JSON online for free.{% endblock %}">
     <meta property="og:url" content="https://json-tools-online.com">
     <meta property="og:type" content="website">
 
-    <!-- Favicon -->
     <link rel="icon" href="/static/favicon.ico">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SE70PJE414"></script>
@@ -31,10 +41,51 @@
     </script>
     <!-- CSS -->
     <link rel="stylesheet" href="/static/style.css">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SE70PJE414"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SE70PJE414');
+    </script>
 </head>
 
-<body class="{% block body_class %}{% endblock %}">
+<body>
+    {% include "navbar.html" %}
+
     {% block content %}{% endblock %}
+
+    <!-- Global Theme Script -->
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark");
+            localStorage.setItem(
+                "theme",
+                document.body.classList.contains("dark") ? "dark" : "light"
+            );
+        }
+
+        (function () {
+            if (localStorage.getItem("theme") === "dark") {
+                document.body.classList.add("dark");
+            }
+        })();
+    </script>
+    <script>
+    function toggleDropdown(e) {
+        e.stopPropagation();
+        document.querySelector(".dropdown-content").classList.toggle("show");
+    }
+
+    document.addEventListener("click", function () {
+        document.querySelectorAll(".dropdown-content").forEach(d => {
+            d.classList.remove("show");
+        });
+    });
+</script>
+
 </body>
 </html>
 

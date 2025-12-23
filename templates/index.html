@@ -5,41 +5,21 @@ JSON Validator & Formatter – Free Online JSON Tools
 {% endblock %}
 
 {% block description %}
-Free online JSON validator and formatter. Validate, beautify, and minify JSON easily with error line numbers and dark mode support.
+Free online JSON validator and formatter. Validate, beautify, and minify JSON easily with error line numbers and dark mode.
 {% endblock %}
 
 {% block content %}
 
-<header class="top-header">
-    <div>
-        <h1>JSON Validator & Formatter</h1>
-        <p>Validate, Beautify, and Minify JSON easily</p>
-    </div>
-
-    <nav>
-        <a href="/about">About</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
-        <a href="/contact">Contact</a>
-        <span class="theme-toggle" onclick="toggleTheme()">🌙</span>
-    </nav>
-</header>
-
-<!-- TOP AD PLACEHOLDER -->
+<!-- TOP AD -->
 <div class="ad ad-top">Advertisement</div>
 
 <div class="container">
-    <p class="helper-text">
-        To format and validate your JSON, just copy + paste it below:
-    </p>
+    <p class="helper-text">Paste your JSON below:</p>
 
     <div class="editor-container">
         <div id="lineNumbers"></div>
-
-        <textarea id="jsonInput"
-                  oninput="updateLineNumbers()"
+        <textarea id="jsonInput" oninput="updateLineNumbers()"
                   placeholder="Paste your JSON here...">{{ input_json }}</textarea>
-
         <button class="copy-btn" onclick="copyEditor()">Copy</button>
     </div>
 
@@ -62,38 +42,16 @@ Free online JSON validator and formatter. Validate, beautify, and minify JSON ea
     {% if error %}
         <div class="status error">
             {{ error }}<br>
-            <strong>Line:</strong> {{ error_line }},
-            <strong>Column:</strong> {{ error_col }}
+            Line {{ error_line }}, Column {{ error_col }}
         </div>
-
-        <script>
-            highlightErrorLine({{ error_line }});
-        </script>
     {% endif %}
 </div>
-<section class="seo-content">
-    <h2>Why Use Our JSON Validator?</h2>
-    <p>
-        Our online JSON validator helps developers quickly detect errors,
-        format JSON data, and minify large JSON objects.
-        No data is stored on our servers, ensuring privacy and security.
-    </p>
-
-    <h2>Features</h2>
-    <ul>
-        <li>Validate JSON syntax instantly</li>
-        <li>Beautify JSON for better readability</li>
-        <li>Minify JSON to reduce size</li>
-        <li>Line and column error detection</li>
-        <li>Dark mode support</li>
-    </ul>
-</section>
 <!-- EXPORT MODAL -->
 <div id="exportModal" class="modal">
     <div class="modal-content">
         <h3>Export JSON</h3>
 
-        <label>Enter a name for the JSON file:</label>
+        <label>Enter file name:</label>
         <input type="text" id="fileNameInput" placeholder="data.json">
 
         <div class="modal-actions">
@@ -102,7 +60,69 @@ Free online JSON validator and formatter. Validate, beautify, and minify JSON ea
         </div>
     </div>
 </div>
-<!-- BOTTOM AD PLACEHOLDER -->
+<section class="tool-info">
+
+    <h2>Why Use JSON Validator?</h2>
+    <p>
+        JSON Validator helps you quickly check whether your JSON syntax is correct.
+        It highlights errors with exact line and column numbers, saving debugging time.
+    </p>
+
+    <hr>
+
+    <h2>Key Features</h2>
+    <ul class="feature-list">
+        <li>Instant JSON syntax validation</li>
+        <li>Exact error line and column detection</li>
+        <li>Beautify and minify JSON</li>
+        <li>Upload or paste JSON instantly</li>
+        <li>Copy or download formatted JSON</li>
+        <li>Dark mode support</li>
+    </ul>
+
+    <hr>
+
+    <h2>How to Use JSON Validator</h2>
+    <ol>
+        <li>Paste your JSON into the editor.</li>
+        <li>Click <strong>Validate</strong> to check for errors.</li>
+        <li>Fix issues highlighted with line and column numbers.</li>
+        <li>Use Beautify or Minify if needed.</li>
+    </ol>
+
+    <hr>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+        <h3>Why is my JSON invalid?</h3>
+        <p>
+            JSON can be invalid due to missing commas, incorrect quotes,
+            extra brackets, or trailing commas. The validator shows the
+            exact location of the error.
+        </p>
+    </div>
+
+    <div class="faq-item">
+        <h3>Does it support large JSON files?</h3>
+        <p>
+            Yes. This tool supports large JSON files. Performance depends
+            on your browser and device.
+        </p>
+    </div>
+
+    <div class="faq-item">
+        <h3>Is my data stored?</h3>
+        <p>
+            No. All JSON validation happens locally in your browser.
+            Your data is never uploaded or stored.
+        </p>
+    </div>
+
+</section>
+
+
+<!-- BOTTOM AD -->
 <div class="ad ad-bottom">Advertisement</div>
 
 <script>
@@ -116,13 +136,11 @@ function updateLineNumbers() {
 
 function submitForm(action) {
     document.getElementById("hiddenJson").value = textarea.value;
-
     const form = document.querySelector("form");
     const input = document.createElement("input");
     input.type = "hidden";
     input.name = "action";
     input.value = action;
-
     form.appendChild(input);
     form.submit();
 }
@@ -133,17 +151,13 @@ function copyEditor() {
     alert("JSON copied!");
 }
 
-function highlightErrorLine(line) {
-    if (!line) return;
-    const lines = textarea.value.split("\n");
-    let start = 0;
-    for (let i = 0; i < line - 1; i++) start += lines[i].length + 1;
-    textarea.focus();
-    textarea.setSelectionRange(start, start + lines[line - 1].length);
+function clearEditor() {
+    window.location.href = "/";
 }
+
 function openExportModal() {
     if (!textarea.value.trim()) {
-        alert("JSON content is empty!");
+        alert("JSON is empty!");
         return;
     }
     document.getElementById("fileNameInput").value = "data.json";
@@ -159,7 +173,7 @@ function saveJSON() {
     const content = textarea.value;
 
     if (!fileName) {
-        alert("Please enter a file name");
+        alert("Please enter file name");
         return;
     }
 
@@ -182,30 +196,6 @@ function saveJSON() {
     closeExportModal();
 }
 
-function clearEditor() {
-    textarea.value = "";
-    updateLineNumbers();
-
-    // Reload page to reset server-rendered state
-    window.location.href = "/";
-}
-
-function toggleTheme() {
-    document.body.classList.toggle("dark");
-
-    if (document.body.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
-    } else {
-        localStorage.setItem("theme", "light");
-    }
-}
-
-(function () {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-        document.body.classList.add("dark");
-    }
-})();
 
 updateLineNumbers();
 </script>

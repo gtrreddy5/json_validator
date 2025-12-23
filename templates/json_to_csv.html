@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}JSON to CSV Converter{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>JSON to CSV Converter</h2>
+
+    <!-- Input -->
+    <textarea id="jsonInput" placeholder="Paste JSON array here..."></textarea>
+
+    <div class="file-row">
+        <input type="file" id="jsonFile" accept=".json">
+    </div>
+
+    <div class="buttons">
+        <button onclick="convert()">Convert</button>
+        <button onclick="copyOutput()">Copy CSV</button>
+        <button onclick="saveFile()">Save CSV</button>
+    </div>
+
+    <!-- Output -->
+    <textarea id="csvOutput" placeholder="CSV output..." readonly></textarea>
+</div>
+<section class="tool-info">
+
+    <h2>Why Use JSON to CSV?</h2>
+    <p>
+        JSON to CSV Converter helps you quickly convert your JSON data into a CSV format.
+        It's useful for importing data into spreadsheets or databases.
+    </p>
+
+    <hr>
+
+    <h2>Key Features</h2>
+    <ul class="feature-list">
+        <li>Paste or upload JSON file</li>
+        <li>Supports array and single object JSON</li>
+        <li>Instant CSV generation</li>
+        <li>Copy or download CSV file</li>
+        <li>Secure browser-based conversion</li>
+    </ul>
+
+    <hr>
+
+    <h2>How to Use JSON to CSV</h2>
+    <ol>
+        <li>Paste JSON or upload a JSON file</li>
+        <li>Click Convert</li>
+        <li>Copy or download the generated CSV</li>
+    </ol>
+
+    <hr>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+        <h3>Does JSON need to be an array?</h3>
+        <p>
+            Arrays work best, but single objects are also supported.
+        </p>
+    </div>
+
+    <div class="faq-item">
+        <h3>How are nested objects handled?</h3>
+        <p>
+            Nested objects are converted into text format inside CSV cells.
+        </p>
+    </div>
+
+</section>
+<script>
+const jsonInput = document.getElementById("jsonInput");
+const jsonFile = document.getElementById("jsonFile");
+const csvOutput = document.getElementById("csvOutput");
+
+/* Load file into textarea */
+jsonFile.addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = e => jsonInput.value = e.target.result;
+    reader.readAsText(file);
+});
+
+function convert() {
+    try {
+        const data = JSON.parse(jsonInput.value);
+
+        if (!Array.isArray(data)) {
+            alert("JSON must be an array of objects");
+            return;
+        }
+
+        const headers = Object.keys(data[0]);
+        const rows = data.map(obj =>
+            headers.map(h => `"${(obj[h] ?? "").toString().replace(/"/g, '""')}"`).join(",")
+        );
+
+        csvOutput.value = [headers.join(","), ...rows].join("\n");
+    } catch {
+        alert("Invalid JSON");
+    }
+}
+
+function copyOutput() {
+    csvOutput.select();
+    document.execCommand("copy");
+    alert("CSV copied!");
+}
+
+function saveFile() {
+    if (!csvOutput.value.trim()) {
+        alert("No CSV to save");
+        return;
+    }
+
+    const blob = new Blob([csvOutput.value], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "data.csv";
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
+</script>
+{% endblock %}

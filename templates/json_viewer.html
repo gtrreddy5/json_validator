@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% block title %}JSON Viewer{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>JSON Viewer</h2>
+
+    <textarea id="jsonEditor"></textarea>
+
+    <div id="fileWrapper">
+        <input type="file" id="jsonFile" accept=".json">
+    </div>
+
+    <div class="buttons">
+        <button onclick="viewJSON()">View</button>
+        <button onclick="expandAll()">Expand All</button>
+        <button onclick="collapseAll()">Collapse All</button>
+        <button onclick="copyJSON()">Copy</button>
+        <button onclick="saveJSON()">Save</button>
+        <button onclick="clearJSON()">Clear JSON</button>
+    </div>
+    <div id="jsonViewer" class="json-viewer"></div>
+</div>
+<section class="tool-info">
+
+    <h2>Why Use JSON Viewer?</h2>
+    <p>
+        JSON Viewer helps developers easily read and explore complex JSON
+        by displaying it in an expandable tree structure.
+    </p>
+
+    <hr>
+
+    <h2>Key Features</h2>
+    <ul class="feature-list">
+        <li>Expandable and collapsible JSON tree</li>
+        <li>Syntax highlighted editor with line numbers</li>
+        <li>Upload or paste JSON</li>
+        <li>Copy and save formatted JSON</li>
+        <li>Dark mode support</li>
+    </ul>
+
+    <hr>
+
+    <h2>How to Use JSON Viewer</h2>
+    <ol>
+        <li>Paste JSON or upload a JSON file.</li>
+        <li>Click <strong>View</strong>.</li>
+        <li>Expand or collapse nodes to explore data.</li>
+    </ol>
+
+    <hr>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+        <h3>Is this JSON Viewer free?</h3>
+        <p>Yes, it is completely free to use.</p>
+    </div>
+
+    <div class="faq-item">
+        <h3>Is my data safe?</h3>
+        <p>All processing happens in your browser. No data is stored.</p>
+    </div>
+
+</section>
+
+<script>
+/* 1️⃣ Initialize CodeMirror */
+let editor = CodeMirror.fromTextArea(document.getElementById("jsonEditor"), {
+    mode: { name: "javascript", json: true },
+    lineNumbers: true,
+    theme: "material",
+    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+    foldGutter: true,
+    autoCloseBrackets: true
+});
+
+/* 2️⃣ File upload handler (DEFINED ONCE) */
+function handleFileUpload() {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = e => editor.setValue(e.target.result);
+    reader.readAsText(file);
+}
+
+/* 3️⃣ Initial attach */
+document.getElementById("jsonFile")
+    .addEventListener("change", handleFileUpload);
+
+/* 4️⃣ Clean JSON helper */
+function getCleanJSON() {
+    return editor.getValue()
+        .replace(/^\uFEFF/, "")   // remove BOM
+        .trim();
+}
+
+/* 5️⃣ View JSON with proper error handling */
+function viewJSON() {
+    const text = getCleanJSON();
+
+    if (!text) {
+        alert("JSON is empty");
+        return;
+    }
+
+    try {
+        const data = JSON.parse(text);
+        renderTree(data);
+    } catch (e) {
+        const match = e.message.match(/position (\d+)/);
+        let msg = e.message;
+
+        if (match) {
+            const pos = Number(match[1]);
+            const before = text.slice(0, pos);
+            const line = before.split("\n").length;
+            const col = before.split("\n").pop().length + 1;
+
+            msg = `Invalid JSON\nLine: ${line}, Column: ${col}\n\n${e.message}`;
+            editor.setCursor({ line: line - 1, ch: col - 1 });
+            editor.focus();
+        }
+
+        alert(msg);
+    }
+}
+
+/* 6️⃣ Render JSON Tree */
+function renderTree(data) {
+    const container = document.getElementById("jsonViewer");
+    container.innerHTML = "";
+    container.appendChild(buildTree(data));
+}
+
+function buildTree(obj) {
+    const ul = document.createElement("ul");
+
+    for (const key in obj) {
+        const li = document.createElement("li");
+
+        if (typeof obj[key] === "object" && obj[key] !== null) {
+            const toggle = document.createElement("span");
+            toggle.textContent = "▼ ";
+            toggle.style.cursor = "pointer";
+
+            const label = document.createElement("strong");
+            label.textContent = key;
+
+            const child = buildTree(obj[key]);
+
+            toggle.onclick = () => {
+                child.classList.toggle("hidden");
+                toggle.textContent = child.classList.contains("hidden") ? "▶ " : "▼ ";
+            };
+
+            li.append(toggle, label, child);
+        } else {
+            li.innerHTML = `<strong>${key}:</strong> <span class="value">${obj[key]}</span>`;
+        }
+
+        ul.appendChild(li);
+    }
+
+    return ul;
+}
+
+/* 7️⃣ Editor folding controls */
+function expandAll() {
+    editor.execCommand("unfoldAll");
+}
+
+function collapseAll() {
+    editor.execCommand("foldAll");
+}
+
+/* 8️⃣ Copy & Save */
+function copyJSON() {
+    navigator.clipboard.writeText(editor.getValue());
+    alert("Copied!");
+}
+
+function saveJSON() {
+    const blob = new Blob([editor.getValue()], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "data.json";
+    a.click();
+}
+
+/* 9️⃣ Clear JSON (RESET FILE INPUT PROPERLY) */
+function clearJSON() {
+    editor.setValue("");
+    document.getElementById("jsonViewer").innerHTML = "";
+
+    const wrapper = document.getElementById("fileWrapper");
+    wrapper.innerHTML = '<input type="file" id="jsonFile" accept=".json">';
+
+    // Reattach upload handler
+    document.getElementById("jsonFile")
+        .addEventListener("change", handleFileUpload);
+}
+</script>
+
+{% endblock %}
