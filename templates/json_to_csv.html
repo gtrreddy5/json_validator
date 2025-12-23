@@ -130,4 +130,28 @@ function saveFile() {
     URL.revokeObjectURL(url);
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does JSON need to be an array?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JSON arrays work best for CSV conversion, but single JSON objects are also supported."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are nested objects handled?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nested objects and arrays are converted into text format inside CSV cells to preserve structure."
+      }
+    }
+  ]
+}
+</script>
 {% endblock %}
