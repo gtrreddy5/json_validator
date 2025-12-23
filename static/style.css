@@ -561,6 +561,30 @@ body.dark .footer-links a {
     opacity: 0.8;
 }
 
+/* ===== Mobile fix for JSON Viewer buttons ===== */
+@media (max-width: 768px) {
+
+    .buttons {
+        flex-wrap: wrap;          /* ✅ allow wrapping */
+        justify-content: center;  /* ✅ center nicely */
+    }
+
+    .buttons button {
+        flex: 1 1 45%;            /* ✅ two buttons per row */
+        max-width: 48%;
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+}
+
+/* Extra small screens (very narrow phones) */
+@media (max-width: 420px) {
+
+    .buttons button {
+        flex: 1 1 100%;           /* ✅ one button per row */
+        max-width: 100%;
+    }
+}
 
 
 
