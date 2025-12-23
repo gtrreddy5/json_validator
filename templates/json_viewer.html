@@ -206,5 +206,28 @@ function clearJSON() {
         .addEventListener("change", handleFileUpload);
 }
 </script>
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this JSON Viewer free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, it is completely free to use."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my data safe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All processing happens in your browser. No data is stored."
+      }
+    }
+  ]
+}
+</script>
 {% endblock %}
