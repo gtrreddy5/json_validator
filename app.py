@@ -63,6 +63,9 @@ def about():
 def sitemap():
     pages = [
         "https://json-tools-online.com/",
+        "https://json-tools-online.com/json-to-csv",
+        "https://json-tools-online.com/json-viewer",
+        "https://json-tools-online.com/json-to-xml",
         "https://json-tools-online.com/about",
         "https://json-tools-online.com/privacy",
         "https://json-tools-online.com/terms",
