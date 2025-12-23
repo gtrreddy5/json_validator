@@ -550,6 +550,16 @@ body.dark .footer-inner p,
 body.dark .footer-links a {
     color: #bbb;
 }
+.theme-toggle {
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 12px;
+    user-select: none;
+}
+
+.theme-toggle:hover {
+    opacity: 0.8;
+}
 
 
 
