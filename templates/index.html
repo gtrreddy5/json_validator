@@ -199,5 +199,36 @@ function saveJSON() {
 
 updateLineNumbers();
 </script>
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why is my JSON invalid?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JSON can be invalid due to missing commas, incorrect quotes, extra brackets, or trailing commas. The validator shows the exact location of the error."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it support large JSON files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. This tool supports large JSON files. Performance depends on your browser and device."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my data stored?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All JSON validation happens locally in your browser. Your data is never uploaded or stored."
+      }
+    }
+  ]
+}
+</script>
 {% endblock %}
