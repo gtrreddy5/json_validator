@@ -59,28 +59,28 @@
 
     <!-- Global Theme Script -->
     <script>
-        const themeToggle = document.getElementById("themeToggle");
+        const themeIcon = document.getElementById("themeIcon");
 
-        function applyTheme(theme) {
+        function setTheme(theme) {
             if (theme === "dark") {
                 document.body.classList.add("dark");
-                themeToggle.textContent = "☀️"; // show sun in dark mode
+                themeIcon.textContent = "☀️"; // show light icon in dark mode
             } else {
                 document.body.classList.remove("dark");
-                themeToggle.textContent = "🌙"; // show moon in light mode
+                themeIcon.textContent = "🌙"; // show dark icon in light mode
             }
             localStorage.setItem("theme", theme);
         }
 
         function toggleTheme() {
             const isDark = document.body.classList.contains("dark");
-            applyTheme(isDark ? "light" : "dark");
+            setTheme(isDark ? "light" : "dark");
         }
 
         // Apply saved theme on page load
         (function () {
             const savedTheme = localStorage.getItem("theme") || "light";
-            applyTheme(savedTheme);
+            setTheme(savedTheme);
         })();
     </script>
     <script>
@@ -98,6 +98,7 @@
 
 </body>
 </html>
+
 
 
 
