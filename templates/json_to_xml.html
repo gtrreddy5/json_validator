@@ -141,4 +141,36 @@ function saveFile() {
     URL.revokeObjectURL(url);
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does this tool support nested JSON?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Nested JSON objects and arrays are automatically converted into structured XML elements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my JSON data stored or uploaded?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All conversion happens locally in your browser. Your data is never uploaded or stored."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I convert large JSON files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Large JSON files are supported. Performance depends on your browser and device."
+      }
+    }
+  ]
+}
+</script>
 {% endblock %}
