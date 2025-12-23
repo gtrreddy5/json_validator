@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, Response
+from datetime import datetime
 import json
 import os
 
@@ -43,7 +44,9 @@ def index():
         error_line=error_line,
         error_col=error_col
     )
-
+@app.context_processor
+def inject_year():
+    return {"current_year": datetime.now().year}
 @app.route("/privacy")
 def privacy():
     return render_template("privacy.html")
