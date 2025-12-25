@@ -108,6 +108,9 @@ def json_viewer():
 @app.route("/json-to-xml")
 def json_to_xml():
     return render_template("json_to_xml.html")
+@app.route("/json-diff")
+def json_diff():
+    return render_template("json_diff.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
