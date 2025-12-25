@@ -53,9 +53,18 @@
 </head>
 
 <body>
-    {% include "navbar.html" %}
+    <div class="page-wrapper">
 
-    {% block content %}{% endblock %}
+        {% include "navbar.html" %}
+
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- ✅ Footer included from separate file -->
+        {% include "footer.html" %}
+
+    </div>
 
     <!-- Global Theme Script -->
     <script>
@@ -98,6 +107,7 @@
 
 </body>
 </html>
+
 
 
 
