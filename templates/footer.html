@@ -4,10 +4,26 @@
             © {{ current_year }} JSON Tools Online. All rights reserved.
         </p>
 
-        <nav class="footer-links">
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
+        <div class="footer-links">
+            <a href="/about">About</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
             <a href="/contact">Contact</a>
-        </nav>
+        </div>
     </div>
+
+    <!-- ✅ Schema.org metadata -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "JSON Tools Online",
+      "url": "https://json-tools-online.com",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Support",
+        "url": "https://json-tools-online.com/contact"
+      }
+    }
+    </script>
 </footer>
