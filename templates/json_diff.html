@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% block title %}JSON Compare & Diff – Online JSON Tools{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/merge/merge.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/merge/merge.min.js"></script>
+
+<style>
+.compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+.compare-grid textarea {
+    height: 220px;
+    font-family: monospace;
+}
+.actions {
+    text-align: center;
+    margin: 15px 0;
+}
+#mergeView {
+    margin-top: 20px;
+    height: 420px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+.hidden {
+    display: none;
+}
+</style>
+
+<div class="container">
+    <h2>JSON Diff / Compare</h2>
+
+    <!-- Paste Editors -->
+    <div class="compare-grid" id="pasteArea">
+        <div>
+            <h4>Left JSON</h4>
+            <input type="file" accept=".json" onchange="loadFile(event,'left')">
+            <textarea id="leftJson" placeholder="Paste Left JSON"></textarea>
+        </div>
+
+        <div>
+            <h4>Right JSON</h4>
+            <input type="file" accept=".json" onchange="loadFile(event,'right')">
+            <textarea id="rightJson" placeholder="Paste Right JSON"></textarea>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="actions">
+        <button onclick="compare()">Compare</button>
+        <button onclick="prevDiff()">⬆ Previous</button>
+        <button onclick="nextDiff()">⬇ Next</button>
+        <button onclick="clearAll()">Clear</button>
+        <button onclick="closeDiff()">Close Diff</button>
+        <button onclick="download()">💾 Save</button>
+    </div>
+
+    <!-- Diff View -->
+    <div id="mergeView" class="hidden"></div>
+</div>
+
+<script>
+let mergeEditor;
+
+let diffLineNumbers = [];
+let currentDiffIndex = -1;
+
+
+function loadFile(e, side) {
+    const reader = new FileReader();
+    reader.onload = ev => {
+        document.getElementById(side + "Json").value = ev.target.result;
+    };
+    reader.readAsText(e.target.files[0]);
+}
+
+function compare() {
+    const left = document.getElementById("leftJson").value;
+    const right = document.getElementById("rightJson").value;
+
+    try {
+        JSON.parse(left);
+        JSON.parse(right);
+    } catch {
+        alert("Invalid JSON in one of the editors");
+        return;
+    }
+
+    document.getElementById("mergeView").classList.remove("hidden");
+    document.getElementById("mergeView").innerHTML = "";
+
+    mergeEditor = CodeMirror.MergeView(
+        document.getElementById("mergeView"),
+        {
+            value: left,
+            orig: right,
+            mode: "application/json",
+            lineNumbers: true,
+            highlightDifferences: true,
+            connect: "align",
+            collapseIdentical: false,
+            // 🔥 IMPORTANT FLAGS
+            allowEditingOriginals: true,
+            revertButtons: true
+        }
+    );
+
+    collectDiffs();
+}
+function collectDiffs() {
+    diffLineNumbers = [];
+    currentDiffIndex = -1;
+
+    const left = mergeEditor.editor().getValue();
+    const right = mergeEditor.rightOriginal().getValue();
+
+    const dmp = new diff_match_patch();
+    const diffs = dmp.diff_main(left, right);
+    dmp.diff_cleanupSemantic(diffs);
+
+    let leftLine = 0;
+
+    diffs.forEach(part => {
+        const [type, text] = part;
+        const lines = text.split("\n").length - 1;
+
+        // INSERT or DELETE = difference
+        if (type !== 0) {
+            diffLineNumbers.push(leftLine);
+        }
+
+        if (type !== 1) {
+            leftLine += lines;
+        }
+    });
+
+    // Remove duplicates
+    diffLineNumbers = [...new Set(diffLineNumbers)];
+
+    console.log("Detected diff lines:", diffLineNumbers);
+}
+
+
+
+
+
+function nextDiff() {
+    if (!diffLineNumbers.length) return;
+
+    currentDiffIndex =
+        (currentDiffIndex + 1) % diffLineNumbers.length;
+    scrollToDiff();
+}
+
+function prevDiff() {
+    if (!diffLineNumbers.length) return;
+
+    currentDiffIndex =
+        (currentDiffIndex - 1 + diffLineNumbers.length) % diffLineNumbers.length;
+    scrollToDiff();
+}
+
+
+
+
+function scrollToDiff() {
+    if (!diffLineNumbers.length) return;
+
+    const line = diffLineNumbers[currentDiffIndex];
+
+    mergeEditor.editor().scrollIntoView(
+        { line, ch: 0 },
+        200
+    );
+
+    const right = mergeEditor.rightOriginal();
+    if (right) {
+        right.scrollIntoView(
+            { line, ch: 0 },
+            200
+        );
+    }
+}
+
+
+
+
+
+
+
+function clearAll() {
+    document.getElementById("leftJson").value = "";
+    document.getElementById("rightJson").value = "";
+    closeDiff();
+}
+
+function closeDiff() {
+    document.getElementById("mergeView").classList.add("hidden");
+    document.getElementById("mergeView").innerHTML = "";
+}
+
+function download() {
+    if (!mergeEditor) {
+        alert("No diff to save");
+        return;
+    }
+
+    const content = mergeEditor.editor().getValue();
+    const blob = new Blob([content], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "merged.json";
+    a.click();
+}
+</script>
+
+{% endblock %}
