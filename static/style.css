@@ -627,8 +627,51 @@ body.dark .footer-links a {
         max-width: 100%;
     }
 }
+/* ===== JSON Diff Buttons ===== */
 
+.actions button {
+    padding: 10px 18px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #fff;
+    transition: opacity 0.2s ease;
+}
 
+.actions button:hover {
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background: #007bff;
+}
+
+.btn-secondary {
+    background: #6c757d;
+}
+
+.btn-success {
+    background: #28a745;
+}
+
+.btn-warning {
+    background: #ff9800;
+}
+
+.btn-danger {
+    background: #dc3545;
+}
+
+/* Dark mode support */
+body.dark .actions button {
+    color: #fff;
+}
+
+.container {
+    overflow-x: hidden;
+}
 
 
 
