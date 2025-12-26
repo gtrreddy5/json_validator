@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, Response, jsonify
 from datetime import datetime
 import json
 import os
+import re
+import time
 
 app = Flask(__name__)
 
@@ -70,6 +72,7 @@ def sitemap():
         "https://json-tools-online.com/json-viewer",
         "https://json-tools-online.com/json-to-xml",
         "https://json-tools-online.com/json-diff",
+        "https://json-tools-online.com/regex-tester",
         "https://json-tools-online.com/about",
         "https://json-tools-online.com/privacy",
         "https://json-tools-online.com/terms",
@@ -112,6 +115,10 @@ def json_to_xml():
 @app.route("/json-diff")
 def json_diff():
     return render_template("json_diff.html")
+
+@app.route("/regex-tester")
+def regex_tester():
+    return render_template("regex_tester.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

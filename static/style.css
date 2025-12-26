@@ -761,5 +761,244 @@ body.dark .footer-links a {
     }
 }
 
+/* ===== REGEX TOOL ===== */
 
+.regex-container {
+    max-width: 1200px;
+}
+
+.regex-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.regex-input-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f1f1f1;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.regex-input-row input {
+    flex: 1;
+    font-family: monospace;
+    padding: 6px;
+    border: none;
+    outline: none;
+}
+
+.delimiter {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.regex-options label {
+    margin-right: 6px;
+    font-size: 13px;
+}
+
+.copy-btn-regex {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.regex-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.regex-panel textarea {
+    width: 100%;
+    height: 200px;
+}
+
+.match-block {
+    background: #eef;
+    margin-bottom: 6px;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.group {
+    font-size: 13px;
+    color: #333;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+    .regex-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================
+   REGEX TOOL – DARK MODE FIX
+   ================================ */
+
+/* Regex header text (Regular Expression / match count) */
+body.dark .regex-header {
+    color: #e0e0e0;
+}
+
+/* Regex input container */
+body.dark .regex-input-row {
+    background: #2a2a2a;
+    border: 1px solid #444;
+}
+
+/* Regex input textbox */
+body.dark .regex-input-row input {
+    background: #1e1e1e;
+    color: #f5f5f5;
+}
+
+/* Placeholder text */
+body.dark .regex-input-row input::placeholder {
+    color: #888;
+}
+
+/* Delimiters (/ /) */
+body.dark .delimiter {
+    color: #ccc;
+}
+
+/* Flags (g i m) */
+body.dark .regex-options label {
+    color: #e0e0e0;
+}
+
+/* Checkbox accent color */
+body.dark .regex-options input[type="checkbox"] {
+    accent-color: #4da3ff;
+}
+
+/* Copy button */
+body.dark .copy-btn-regex {
+    background: #444;
+    color: #fff;
+}
+
+/* Regex panels */
+body.dark .regex-panel {
+    background: #1e1e1e;
+    color: #e0e0e0;
+    border-radius: 6px;
+}
+
+/* Panel headings */
+body.dark .regex-panel h3 {
+    color: #ffffff;
+}
+
+/* Test string textarea */
+body.dark .regex-panel textarea {
+    background: #121212;
+    color: #e0e0e0;
+    border: 1px solid #333;
+}
+
+/* Match blocks */
+body.dark .match-block {
+    background: #2a2f3a;
+    color: #eaeaea;
+}
+
+/* Group text */
+body.dark .group {
+    color: #bcdcff;
+}
+
+/* Explanation box */
+body.dark .regex-explain {
+    background: #1e1e1e;
+    color: #ddd;
+}
+
+/* Error text (if regex fails) */
+body.dark .regex-panel .error {
+    color: #ff6b6b;
+}
+/* ================================
+   GLOBAL TOOL LAYOUT (PRO)
+   ================================ */
+
+.container.tool-wide {
+    max-width: 1200px;
+}
+
+/* Ultra-wide desktop */
+@media (min-width: 1600px) {
+    .container.tool-wide {
+        max-width: 1400px;
+    }
+}
+
+
+/* =========================
+   ADSENSE PLACEHOLDERS
+   ========================= */
+
+.ad {
+    text-align: center;
+    margin: 20px auto;
+    font-size: 12px;
+    color: #888;
+}
+
+/* Leaderboard */
+.ad-leaderboard {
+    max-width: 100%;
+}
+
+/* In-content */
+.ad-content {
+    max-width: 1000px;
+}
+
+/* Sticky Ads */
+.ad-sticky {
+    position: fixed;
+    top: 120px;
+    width: 160px;
+    height: 600px;
+    z-index: 10;
+}
+
+/* Left & Right */
+.ad-left {
+    left: 10px;
+}
+
+.ad-right {
+    right: 10px;
+}
+
+/* Hide sticky ads on mobile */
+@media (max-width: 1200px) {
+    .ad-sticky {
+        display: none;
+    }
+}
+/* ================================
+   PREVENT STICKY AD OVERLAP
+   ================================ */
+
+/* Desktop only */
+/* @media (min-width: 1200px) {
+
+    .main-content {
+        padding-left: 190px;   /* space for left ad */
+        padding-right: 190px;  /* space for right ad */
+    }
+} */
 

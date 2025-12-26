@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}Regex Tester | JSON Tools Online{% endblock %}
+{% block description %}Advanced Regex Tester like regex101. Test, debug, and explain regular expressions online.{% endblock %}
+
+{% block content %}
+
+<div class="container regex-container">
+
+    <!-- ===== REGEX HEADER ===== -->
+    <div class="regex-header">
+        <span class="regex-title">Regular Expression</span>
+
+        <span class="regex-stats" id="matchCount">0 matches</span>
+    </div>
+
+    <!-- ===== REGEX INPUT ROW ===== -->
+    <div class="regex-input-row">
+        <span class="delimiter" id="delimiter" title="Click to change delimiter">/</span>
+
+        <input
+            type="text"
+            id="regexInput"
+            placeholder="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            oninput="runRegex()"
+        />
+
+        <span class="delimiter">/</span>
+
+        <div class="regex-options">
+            <label><input type="checkbox" checked onchange="runRegex()" id="flagG">g</label>
+            <label><input type="checkbox" onchange="runRegex()" id="flagI">i</label>
+            <label><input type="checkbox" onchange="runRegex()" id="flagM">m</label>
+        </div>
+
+        <button class="copy-btn-regex" onclick="copyRegex()">📋</button>
+    </div>
+
+    <!-- ===== MAIN GRID ===== -->
+    <div class="regex-grid">
+
+        <!-- TEST STRING -->
+        <div class="regex-panel">
+            <h3>Test String</h3>
+            <textarea id="testString" oninput="runRegex()"
+                placeholder="Paste text to test regex..."></textarea>
+        </div>
+
+        <!-- MATCH INFO -->
+        <div class="regex-panel">
+            <h3>Match Information</h3>
+            <div id="matchInfo" class="match-info">No matches</div>
+        </div>
+
+        <!-- EXPLANATION -->
+        <div class="regex-panel">
+            <h3>Explanation (Python Regex)</h3>
+            <div id="regexExplain" class="regex-explain">
+                Enter a regex to see explanation.
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- ================= IN-CONTENT AD ================= -->
+<!--
+<div class="ad ad-content">
+    Google AdSense – In-content / Rectangle
+</div>
+-->
+<!-- ================================================= -->
+<section class="tool-info">
+
+    <h2>Why Use Regex Tester?</h2>
+    <p>
+        Regex Tester helps you build, test, and debug regular expressions
+        in real time. It instantly highlights matches, shows captured groups,
+        and explains how each part of your regex works, making it ideal for
+        developers, testers, and learners.
+    </p>
+
+    <hr>
+
+    <h2>Key Features</h2>
+    <ul class="feature-list">
+        <li>Real-time regex matching and validation</li>
+        <li>Match count with detailed group information</li>
+        <li>Support for common regex flags (g, i, m)</li>
+        <li>Clear explanation of regex patterns (Python-style)</li>
+        <li>Test multiple inputs at once</li>
+        <li>Copy regex with flags in one click</li>
+        <li>Dark mode support</li>
+        <li>Runs entirely in your browser (no data uploaded)</li>
+    </ul>
+
+    <hr>
+
+    <h2>How to Use Regex Tester</h2>
+    <ol>
+        <li>Enter your regular expression in the regex input box.</li>
+        <li>Select required flags such as <strong>g</strong>, <strong>i</strong>, or <strong>m</strong>.</li>
+        <li>Paste the text you want to test in the Test String area.</li>
+        <li>View matched results and captured groups instantly.</li>
+        <li>Read the explanation to understand how the regex works.</li>
+        <li>Copy the regex for use in your code.</li>
+    </ol>
+
+    <hr>
+
+    <h2>Learn Regular Expressions</h2>
+    <p>
+        If you are new to regular expressions or want to master advanced patterns,
+        the following resources can help you learn and practice regex effectively:
+    </p>
+
+    <ul class="feature-list">
+        <li>
+            <a href="https://docs.python.org/3/library/re.html" target="_blank" rel="noopener">
+                Python Regex Documentation (Official)
+            </a>
+        </li>
+        <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions"
+               target="_blank" rel="noopener">
+                MDN – Regular Expressions Guide
+            </a>
+        </li>
+        <li>
+            <a href="https://www.regular-expressions.info/" target="_blank" rel="noopener">
+                Regular-Expressions.info (Beginner to Advanced)
+            </a>
+        </li>
+        <li>
+            <a href="https://regexone.com/" target="_blank" rel="noopener">
+                RegexOne – Interactive Regex Tutorials
+            </a>
+        </li>
+    </ul>
+
+    <hr>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+        <h3>Which regex flavor does this tool support?</h3>
+        <p>
+            This tool follows syntax compatible with Python-style regular expressions.
+            Most common patterns work across Python, JavaScript, and PCRE engines.
+        </p>
+    </div>
+
+    <div class="faq-item">
+        <h3>Does this Regex Tester store my data?</h3>
+        <p>
+            No. All regex testing and matching happens locally in your browser.
+            Your input data is never uploaded or stored.
+        </p>
+    </div>
+
+    <div class="faq-item">
+        <h3>Can I test multiple matches and groups?</h3>
+        <p>
+            Yes. The tool shows all matches and their captured groups separately,
+            making it easy to debug complex expressions.
+        </p>
+    </div>
+
+    <div class="faq-item">
+        <h3>Is this Regex Tester free?</h3>
+        <p>
+            Yes. This tool is completely free to use with no usage limits.
+        </p>
+    </div>
+
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which regex flavor does this tool support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The tool supports Python-style regular expressions and most common regex syntax used across languages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this Regex Tester store my data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All regex processing happens locally in your browser. No data is uploaded or stored."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I test multiple matches and groups?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The tool displays all matches along with captured groups for easy debugging."
+      }
+    }
+  ]
+}
+</script>
+
+<script src="/static/regex.js"></script>
+
+{% endblock %}

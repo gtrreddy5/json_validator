@@ -54,9 +54,29 @@
 
 <body>
     <div class="page-wrapper">
-
         {% include "navbar.html" %}
+        <!-- ================= LEFT STICKY AD ================= -->
+        
+        <!-- <div class="ad ad-sticky ad-left">
+            Google AdSense – Left Sticky
+        </div> -->
+       
+        <!-- ================================================== -->
 
+        <!-- ================= RIGHT STICKY AD ================= -->
+        
+        <!-- <div class="ad ad-sticky ad-right">
+            Google AdSense – Right Sticky
+        </div> -->
+       
+        <!-- =================================================== -->
+        <!-- ================= HEADER LEADERBOARD AD ================= -->
+        <!--
+        <div class="ad ad-leaderboard">
+            Google AdSense – Leaderboard (728x90 / responsive)
+        </div>
+        -->
+        <!-- ========================================================= -->
         <main class="main-content">
             {% block content %}{% endblock %}
         </main>
@@ -103,6 +123,19 @@
                 d.classList.remove("show");
             });
         });
+    </script>
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "JSON Tools Online",
+        "url": "https://json-tools-online.com",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://json-tools-online.com/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+        }
     </script>
 
 </body>

@@ -33,7 +33,7 @@
 }
 </style>
 
-<div class="container">
+<div class="container tool-wide">
     <h2>JSON Diff / Compare</h2>
 
     <!-- Paste Editors -->
@@ -64,6 +64,13 @@
     <!-- Diff View -->
     <div id="mergeView" class="hidden"></div>
 </div>
+<!-- ================= IN-CONTENT AD ================= -->
+<!--
+<div class="ad ad-content">
+    Google AdSense – In-content / Rectangle
+</div>
+-->
+<!-- ================================================= -->
 <section class="tool-info">
 
     <h2>Why Use JSON Diff & Compare?</h2>
@@ -284,6 +291,38 @@ function download() {
     a.href = URL.createObjectURL(blob);
     a.download = "merged.json";
     a.click();
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What types of differences does this tool detect?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The tool detects added keys, removed keys, and modified values, including nested JSON structures."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this JSON Diff tool store my data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All JSON comparison and merging happens locally in your browser. Your data is never uploaded or stored."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I merge changes from one JSON to another?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can merge changes from left to right or right to left using merge arrows or by editing directly in the editor."
+      }
+    }
+  ]
 }
 </script>
 
